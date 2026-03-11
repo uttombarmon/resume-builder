@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: pg_dev
+    environment:
+      POSTGRES_USER: resume_dev
+      POSTGRES_PASSWORD: Password_Dev
+      POSTGRES_DB: resume_db
+    ports:
+      - "5432:5432"
+    volumes:
+      # Note: we removed "/data" from the end of the container path
+      - ./pgdata:/var/lib/postgresql:Z
