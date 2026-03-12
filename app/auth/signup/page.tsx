@@ -1,15 +1,7 @@
-import {
-  CheckCircle,
-  File,
-  Linkedin,
-  Lock,
-  Mail,
-  MoveRight,
-  User,
-} from "lucide-react";
-import Image from "next/image";
+import SignUpForm from "@/components/auth/SignUpForm";
+import SocialSignUp from "@/components/auth/SocialSignUp";
+import { CheckCircle, File } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
 const Signup = () => {
   return (
@@ -64,72 +56,7 @@ const Signup = () => {
 
           {/* Form Card */}
           <div className="bg-white dark:bg-black border border-primary/10 p-8 rounded-2xl shadow-sm space-y-6">
-            <div className="space-y-4">
-              {/* Name */}
-              <div className="flex flex-col gap-2">
-                <label className="text-slate-700 dark:text-slate-300 text-sm font-medium">
-                  Full Name
-                </label>
-
-                <div className="relative">
-                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
-                    <User />
-                  </span>
-
-                  <input
-                    type="text"
-                    placeholder="John Doe"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
-                  />
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="flex flex-col gap-2">
-                <label className="text-slate-700 dark:text-slate-300 text-sm font-medium">
-                  Email Address
-                </label>
-
-                <div className="relative">
-                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
-                    <Mail />
-                  </span>
-
-                  <input
-                    type="email"
-                    placeholder="name@example.com"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
-                  />
-                </div>
-              </div>
-
-              {/* Password */}
-              <div className="flex flex-col gap-2">
-                <label className="text-slate-700 dark:text-slate-300 text-sm font-medium">
-                  Password
-                </label>
-
-                <div className="relative">
-                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
-                    <Lock />
-                  </span>
-
-                  <input
-                    type="password"
-                    placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Create Account Button */}
-            <button className="w-full bg-amber-600 hover:bg-amber-600/90 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
-              Create Account
-              <span className="material-symbols-outlined">
-                <MoveRight />
-              </span>
-            </button>
+            <SignUpForm />
 
             {/* Divider */}
             <div className="relative flex items-center py-4">
@@ -143,25 +70,7 @@ const Signup = () => {
             </div>
 
             {/* Social */}
-            <div className="grid grid-cols-2 gap-4">
-              <button className="flex items-center justify-center gap-3 py-3 px-4 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                <Linkedin className=" text-blue-400" />
-
-                <span className="text-sm font-semibold">LinkedIn</span>
-              </button>
-
-              <button className="flex items-center justify-center gap-3 py-3 px-4 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                <Image
-                  className="w-5 h-5"
-                  width={10}
-                  height={10}
-                  alt="Google Logo"
-                  src="/google.png"
-                />
-
-                <span className="text-sm font-semibold">Google</span>
-              </button>
-            </div>
+            <SocialSignUp />
           </div>
 
           {/* Terms */}
