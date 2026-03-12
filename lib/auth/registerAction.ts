@@ -15,7 +15,6 @@ export type ActionState = {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function registerAction(
   prevState: ActionState | null,
   formData: FormData,
@@ -33,10 +32,13 @@ export async function registerAction(
 
   try {
     const { name, email, password } = validated.data;
-    await signUp.email({ name, email, password });
+    console.log(name, email, password);
+    const res = await signUp.email({ name, email, password });
+    console.log(res);
     return { success: true, errors: {} };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
+    console.log(error.message);
     return {
       success: false,
       message: error.message || "An unexpected error occurred during sign up.",
