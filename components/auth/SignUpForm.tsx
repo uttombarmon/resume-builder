@@ -5,6 +5,7 @@ import { useActionState } from "react";
 
 const SignUpForm = () => {
   const [state, formAction, isPending] = useActionState(registerAction, null);
+  console.log(state);
   return (
     <form action={formAction} className=" space-y-4">
       <div className="space-y-4">

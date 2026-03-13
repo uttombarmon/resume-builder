@@ -32,16 +32,30 @@ export async function registerAction(
 
   try {
     const { name, email, password } = validated.data;
-    console.log(name, email, password);
-    const res = await signUp.email({ name, email, password });
-    console.log(res);
+    // console.log(name, email, password);
+    const { data, error } = await signUp.email({
+      name,
+      email,
+      password,
+      callbackURL: "/dashboard",
+    });
+    if (error) {
+      console.error("Better Auth Error:", error);
+      return {
+        success: false,
+        message: error.message || "Authentication failed.",
+        code: error.code, // Useful for specific UI logic (e.g., 'USER_ALREADY_EXISTS')
+      };
+    }
+
+    return { success: true, errors: {} };
     return { success: true, errors: {} };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.log(error.message);
+    console.error("Unexpected System Error:", error);
     return {
       success: false,
-      message: error.message || "An unexpected error occurred during sign up.",
+      message: "A server error occurred. Please try again later.",
     };
   }
 }
