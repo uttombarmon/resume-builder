@@ -1,26 +1,26 @@
 "use server";
 
-import { z } from "zod"; // Ensure z is imported
-import { registerSchema } from "../utils/registerTypes";
-import { signUp } from "./auth-clients";
+import { z } from "zod";
+import { signIn } from "./auth-clients";
+import { emailSignInType } from "../utils/signInTypes";
 
 export type ActionState = {
   success?: boolean;
   message?: string;
   errors?: {
-    name?: string[];
     email?: string[];
     password?: string[];
-    confirmPassword?: string[];
   };
 };
 
-export async function registerAction(
+export async function signInAction(
   prevState: ActionState | null,
   formData: FormData,
 ) {
   const rawData = Object.fromEntries(formData.entries());
-  const validated = registerSchema.safeParse(rawData);
+  console.log("raw: ", rawData);
+  const validated = emailSignInType.safeParse(rawData);
+  console.log(validated);
 
   if (!validated.success) {
     const { fieldErrors } = z.flattenError(validated.error);
@@ -31,12 +31,11 @@ export async function registerAction(
   }
 
   try {
-    const { name, email, password } = validated.data;
-    // console.log(name, email, password);
-    const { data, error } = await signUp.email({
-      name,
+    const { email, password, rememberMe } = validated.data;
+    const { data, error } = await signIn.email({
       email,
       password,
+      rememberMe,
       callbackURL: "/dashboard",
     });
     if (error) {
@@ -44,7 +43,7 @@ export async function registerAction(
       return {
         success: false,
         message: error.message || "Authentication failed.",
-        code: error.code, // Useful for specific UI logic (e.g., 'USER_ALREADY_EXISTS')
+        code: error.code,
       };
     }
 
