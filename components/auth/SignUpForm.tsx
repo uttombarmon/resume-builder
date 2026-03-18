@@ -110,6 +110,9 @@ const SignUpForm = () => {
             state.errors.confirmPassword && (
               <p className="text-red-500">{state.errors.confirmPassword}</p>
             )}
+          {state && state?.success == false && (
+            <p className="text-red-500">{state.message}</p>
+          )}
         </div>
       </div>
 
