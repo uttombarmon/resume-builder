@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { signIn } from "./auth-clients";
-import { emailSignInType } from "../utils/signInTypes";
+import { emailSignInType } from "../utils/schemas";
 
 export type ActionState = {
   success?: boolean;
@@ -18,9 +18,7 @@ export async function signInAction(
   formData: FormData,
 ) {
   const rawData = Object.fromEntries(formData.entries());
-  console.log("raw: ", rawData);
   const validated = emailSignInType.safeParse(rawData);
-  console.log(validated);
 
   if (!validated.success) {
     const { fieldErrors } = z.flattenError(validated.error);
@@ -32,7 +30,7 @@ export async function signInAction(
 
   try {
     const { email, password, rememberMe } = validated.data;
-    const { data, error } = await signIn.email({
+    const { error } = await signIn.email({
       email,
       password,
       rememberMe,

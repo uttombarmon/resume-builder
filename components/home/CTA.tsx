@@ -11,7 +11,7 @@ const CTA = () => {
           Start building your professional resume today and see the difference.
         </p>
         <Link 
-          href="/signup" 
+          href="/auth/signup" 
           className="inline-block bg-white text-blue-600 text-lg font-bold px-10 py-5 rounded-xl hover:bg-blue-50 transition-colors shadow-2xl"
         >
           Create My Resume Now

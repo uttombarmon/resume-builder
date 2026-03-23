@@ -1,11 +1,20 @@
 "use client";
 import { registerAction } from "@/lib/auth/registerAction";
 import { Loader, Lock, Mail, MoveRight, User } from "lucide-react";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
 
 const SignUpForm = () => {
   const [state, formAction, isPending] = useActionState(registerAction, null);
-  console.log(state);
+
+  useEffect(() => {
+    if (!state) return;
+    if (state.success) {
+      toast.success("Account created successfully!");
+    } else if (state.message) {
+      toast.error(state.message);
+    }
+  }, [state]);
   return (
     <form action={formAction} className=" space-y-4">
       <div className="space-y-4">
@@ -16,9 +25,7 @@ const SignUpForm = () => {
           </label>
 
           <div className="relative">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
-              <User />
-            </span>
+            <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
 
             <input
               name="name"
@@ -42,9 +49,7 @@ const SignUpForm = () => {
           </label>
 
           <div className="relative">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
-              <Mail />
-            </span>
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
 
             <input
               name="email"
@@ -68,9 +73,7 @@ const SignUpForm = () => {
           </label>
 
           <div className="relative">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
-              <Lock />
-            </span>
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
 
             <input
               name="password"
@@ -87,9 +90,7 @@ const SignUpForm = () => {
           </label>
 
           <div className="relative">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
-              <Lock />
-            </span>
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
 
             <input
               name="confirmPassword"
@@ -118,13 +119,11 @@ const SignUpForm = () => {
 
       {/* Create Account Button */}
       <button
+        type="submit"
         disabled={isPending}
-        className={`w-full bg-amber-600 hover:bg-amber-600/90 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2`}
+        className="w-full bg-amber-600 hover:bg-amber-600/90 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2"
       >
-        Create Account
-        <span className="material-symbols-outlined">
-          {isPending ? <Loader className="animate-spin" /> : <MoveRight />}
-        </span>
+        {isPending ? <Loader className="animate-spin" size={20} /> : <>​Create Account <MoveRight size={18} /></>}
       </button>
     </form>
   );

@@ -1,6 +1,6 @@
 import SignUpForm from "@/components/auth/SignUpForm";
 import SocialSignUp from "@/components/auth/SocialSignUp";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 
 const Signup = () => {
@@ -27,20 +27,9 @@ const Signup = () => {
             </p>
 
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-amber-600 rounded-full text-xs font-semibold mt-4 uppercase tracking-wider">
-              <span className="material-symbols-outlined text-sm">
-                <CheckCircle />
-              </span>
+              <CheckCircle size={14} />
               No credit card required
             </div>
-          </div>
-          <div className=" mt-10">
-            <Link
-              href={"/auth/signin"}
-              className=" flex bg-amber-600/10 px-4 py-2 outline-1 w-fit rounded-2xl text-amber-500 hover:text-amber-700"
-            >
-              Already has account
-              <ArrowRight />
-            </Link>
           </div>
         </div>
 
@@ -50,6 +39,15 @@ const Signup = () => {
             {/* Form Card */}
             <div className=" border border-primary/10 p-8 rounded-2xl shadow-xs space-y-6">
               <SignUpForm />
+              <div className=" mt-10 text-center">
+                Already has account?
+                <Link
+                  href={"/auth/signin"}
+                  className=" text-amber-500 hover:text-amber-700 mx-1.5 underline"
+                >
+                  Sign In
+                </Link>
+              </div>
 
               {/* Divider */}
               <div className="relative flex items-center py-4">

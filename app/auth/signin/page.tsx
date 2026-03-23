@@ -1,6 +1,7 @@
 import React from "react";
 import { CircleCheck, FileText, Zap } from "lucide-react";
 import SignInForm from "@/components/auth/SignInForm";
+import Link from "next/link";
 const SignIn = () => {
   return (
     <div className="flex min-h-screen flex-col lg:flex-row bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased font-display">
@@ -21,7 +22,9 @@ const SignIn = () => {
             <div className="flex items-center gap-3 text-primary">
               <FileText size={32} className="text-amber-600" />
               <h2 className="text-4xl inline font-black tracking-tight text-amber-600">
-                ResumePro
+                <Link href={"/"} title="Home">
+                  ResumePro
+                </Link>
               </h2>
             </div>
           </div>
@@ -37,9 +40,7 @@ const SignIn = () => {
 
           <div className="mt-10 grid grid-cols-2 gap-6 text-left">
             <div className="flex items-start gap-3">
-              <span className="material-symbols-outlined text-primary">
-                <Zap className=" fill-amber-600 " />
-              </span>
+              <Zap className="fill-amber-600 text-amber-600" size={20} />
               <div>
                 <p className="font-bold">AI Optimization</p>
                 <p className="text-sm opacity-80">
@@ -49,9 +50,7 @@ const SignIn = () => {
             </div>
 
             <div className="flex items-start gap-3">
-              <span className="material-symbols-outlined text-primary">
-                <CircleCheck className=" fill-amber-600" />
-              </span>
+              <CircleCheck className="fill-amber-600 text-amber-600" size={20} />
               <div>
                 <p className="font-bold">ATS Friendly</p>
                 <p className="text-sm opacity-80">
@@ -68,9 +67,7 @@ const SignIn = () => {
         <div className="mx-auto w-full max-w-md">
           {/* Logo Mobile Only */}
           <div className="mb-10 flex items-center gap-2 lg:hidden text-primary">
-            <span className="material-symbols-outlined text-3xl">
-              description
-            </span>
+            <FileText className="text-amber-600" size={28} />
             <h2 className="text-2xl font-bold tracking-tight">ResumePro</h2>
           </div>
 
@@ -85,6 +82,15 @@ const SignIn = () => {
 
           {/* Form */}
           <SignInForm />
+          <div className=" mt-10">
+            Haven&apos;t any account?
+            <Link
+              href={"/auth/signup"}
+              className=" text-amber-500 hover:text-amber-700 mx-1.5 underline"
+            >
+              Create a new account
+            </Link>
+          </div>
         </div>
       </div>
     </div>

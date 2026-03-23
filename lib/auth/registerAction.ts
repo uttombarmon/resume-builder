@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod"; // Ensure z is imported
-import { registerSchema } from "../utils/registerTypes";
+import { registerSchema } from "../utils/schemas";
 import { signUp } from "./auth-clients";
 
 export type ActionState = {
@@ -32,8 +32,7 @@ export async function registerAction(
 
   try {
     const { name, email, password } = validated.data;
-    // console.log(name, email, password);
-    const { data, error } = await signUp.email({
+    const { error } = await signUp.email({
       name,
       email,
       password,
