@@ -1,10 +1,19 @@
 "use client";
 import { signInAction } from "@/lib/auth/signInAction";
 import { Loader } from "lucide-react";
-import React, { useActionState } from "react";
+import React, { useActionState, useEffect } from "react";
+import { toast } from "sonner";
 
 const SignInForm = () => {
   const [state, formAction, isPending] = useActionState(signInAction, null);
+  useEffect(() => {
+    if (!state) return;
+    if (state.success) {
+      toast.success("Sign In successfully!");
+    } else if (state.message) {
+      toast.error("Something wrong!");
+    }
+  }, [state]);
   return (
     <form action={formAction} className="space-y-6">
       <div>

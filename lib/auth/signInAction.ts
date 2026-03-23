@@ -30,7 +30,7 @@ export async function signInAction(
 
   try {
     const { email, password, rememberMe } = validated.data;
-    const { error } = await signIn.email({
+    const { data, error } = await signIn.email({
       email,
       password,
       rememberMe,
@@ -40,12 +40,12 @@ export async function signInAction(
       console.error("Better Auth Error:", error);
       return {
         success: false,
-        message: error.message || "Authentication failed.",
+        message: "Authentication failed.",
         code: error.code,
       };
     }
 
-    return { success: true, errors: {} };
+    return { success: true, data, errors: {} };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("Unexpected System Error:", error);
