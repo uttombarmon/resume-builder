@@ -14,17 +14,17 @@ const Hero = () => {
               your unique skills.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-blue-600 text-white text-lg font-bold px-8 py-4 rounded-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/30">
+              <button type="button" className="bg-blue-600 text-white text-lg font-bold px-8 py-4 rounded-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/30">
                 Get Started for Free
               </button>
-              <button className="bg-white border-2 border-slate-200 text-slate-700 text-lg font-bold px-8 py-4 rounded-xl hover:border-blue-600 hover:text-blue-600 transition-all">
+              <button type="button" className="bg-white border-2 border-slate-200 text-slate-700 text-lg font-bold px-8 py-4 rounded-xl hover:border-blue-600 hover:text-blue-600 transition-all">
                 View Templates
               </button>
             </div>
           </div>
 
           <div className="relative">
-            <div className="bg-white p-4 rounded-2xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500 border border-slate-100">
+            <div className="bg-white p-4 rounded-2xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500 border border-slate-100" aria-hidden="true">
               {/* Using a placeholder for your resume preview */}
               <div className="bg-slate-200 aspect-3/4 rounded-lg w-full flex items-center justify-center text-slate-400">
                 Resume Preview

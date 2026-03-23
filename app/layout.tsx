@@ -17,16 +17,25 @@ export const metadata: Metadata = {
     "Create ATS-friendly, professionally designed resumes in minutes. Land your dream job with ResumePro's expert templates and AI-powered tools.",
 };
 
+import { ThemeProvider } from "@/components/theme-provider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(geist.variable, publicSans.variable, "font-sans")}>
+    <html lang="en" suppressHydrationWarning className={cn(geist.variable, publicSans.variable, "font-sans")}>
       <body className="antialiased">
-        {children}
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

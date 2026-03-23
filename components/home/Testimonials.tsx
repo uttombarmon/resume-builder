@@ -33,7 +33,7 @@ const Testimonials = () => {
               className="bg-slate-50 p-8 rounded-3xl border border-slate-100 flex flex-col justify-between"
             >
               <div>
-                <div className="flex text-yellow-400 mb-4">
+                <div className="flex text-yellow-400 mb-4" aria-hidden="true">
                   {Array(t.stars)
                     .fill(0)
                     .map((_, i) => (
@@ -45,7 +45,7 @@ const Testimonials = () => {
                 </p>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-slate-300 rounded-full shrink-0" />
+                <div className="w-12 h-12 bg-slate-300 rounded-full shrink-0" aria-hidden="true" />
                 <div>
                   <h4 className="font-bold text-slate-900">{t.name}</h4>
                   <p className="text-sm text-slate-500">{t.role}</p>

@@ -16,13 +16,14 @@ export type ActionState = {
 export async function signInAction(
   prevState: ActionState | null,
   formData: FormData,
-) {
+): Promise<ActionState> {
   const rawData = Object.fromEntries(formData.entries());
   const validated = emailSignInType.safeParse(rawData);
 
   if (!validated.success) {
     const { fieldErrors } = z.flattenError(validated.error);
     return {
+      success: false,
       errors: fieldErrors,
       message: "Please fix the errors below.",
     };
@@ -30,22 +31,22 @@ export async function signInAction(
 
   try {
     const { email, password, rememberMe } = validated.data;
-    const { data, error } = await signIn.email({
+    const { error } = await signIn.email({
       email,
       password,
       rememberMe,
       callbackURL: "/dashboard",
     });
+    
     if (error) {
       console.error("Better Auth Error:", error);
       return {
         success: false,
-        message: "Authentication failed.",
-        code: error.code,
+        message: error.message || "Authentication failed.",
       };
     }
 
-    return { success: true, data, errors: {} };
+    return { success: true };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("Unexpected System Error:", error);

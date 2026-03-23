@@ -1,86 +1,109 @@
 import SignUpForm from "@/components/auth/SignUpForm";
 import SocialSignUp from "@/components/auth/SocialSignUp";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, FileText } from "lucide-react";
 import Link from "next/link";
 
 const Signup = () => {
   return (
-    <div className="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
-      <div className=" flex flex-row w-full justify-center items-center min-h-screen">
-        {/* Heading */}
-        <div className=" w-2/4 h-full flex flex-col justify-center items-center relative">
-          <div className="text-center space-y-2 self-center mx-auto">
-            <h1 className="text-slate-900 dark:text-slate-100 text-4xl font-black tracking-tight mb-6">
-              Join <br />
-              <Link href={"/"} className=" text-amber-600 text-5xl inline">
-                ResumePro
-              </Link>
-            </h1>
+    <div className="flex min-h-screen flex-col lg:flex-row bg-background text-foreground antialiased font-sans transition-colors duration-300">
+      {/* Brand Message Section */}
+      <div className="relative hidden w-full items-center justify-center bg-amber-50 dark:bg-slate-900 lg:flex lg:w-1/2">
+        <div
+          className="absolute inset-0 z-0 opacity-40 dark:opacity-20 h-full w-full"
+          aria-hidden="true"
+          style={{
+            backgroundImage: 'url("/login.png")',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        ></div>
 
-            <p className="text-slate-900 dark:text-slate-100  text-2xl w-3/4 mx-auto">
-              Build your professional future today.Land your dream job with a
-              perfect resume.
-            </p>
-            <p className="text-slate-500 dark:text-slate-400 text-base w-3/4 mx-auto">
-              Join over 500,000 professionals who use ResumePro to build
-              ATS-friendly resumes in minutes.
-            </p>
+        <div className="relative z-10 p-12 text-center max-w-xl">
+          <div className="mb-8 flex justify-center">
+            <div className="flex items-center gap-3">
+              <FileText size={40} className="text-amber-600" />
+              <h2 className="text-4xl inline font-black tracking-tight text-amber-600">
+                <Link href={"/"} title="Home">
+                  ResumePro
+                </Link>
+              </h2>
+            </div>
+          </div>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-amber-600 rounded-full text-xs font-semibold mt-4 uppercase tracking-wider">
-              <CheckCircle size={14} />
+          <h1 className="mb-6 text-5xl font-black leading-tight text-slate-900 dark:text-white">
+            Build your professional future today.
+          </h1>
+
+          <p className="text-xl text-slate-700 dark:text-slate-300 font-bold mb-6">
+            Land your dream job with a perfect resume.
+          </p>
+          
+          <p className="text-lg text-slate-600 dark:text-slate-400 font-medium max-w-md mx-auto">
+            Join over 500,000 professionals who use ResumePro to build
+            ATS-friendly resumes in minutes.
+          </p>
+
+          <div className="flex justify-center mt-10">
+            <div className="inline-flex items-center gap-2 px-6 py-2 bg-amber-600/10 text-amber-700 dark:text-amber-500 rounded-full text-sm font-bold uppercase tracking-widest border border-amber-600/20">
+              <CheckCircle size={18} />
               No credit card required
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Form and Social */}
-        <main className="flex-1 flex flex-col items-center justify-center px-4 w-2/4">
-          <div className="w-full max-w-120 space-y-8">
-            {/* Form Card */}
-            <div className=" border border-primary/10 p-8 rounded-2xl shadow-xs space-y-6">
-              <SignUpForm />
-              <div className=" mt-10 text-center">
-                Already has account?
+      {/* Main Content Area */}
+      <main className="bg-white dark:bg-slate-950 flex w-full flex-col justify-center px-6 py-12 lg:w-1/2 lg:px-24 border-l border-slate-100 dark:border-slate-800">
+        <div className="mx-auto w-full max-w-md">
+          {/* Logo Mobile Only */}
+          <div className="mb-10 flex items-center gap-2 lg:hidden">
+            <FileText className="text-amber-600" size={32} />
+            <h2 className="text-2xl font-black tracking-tight dark:text-white">ResumePro</h2>
+          </div>
+
+          <div className="mb-8 w-full text-center lg:text-left">
+            <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+              Create Your Free Account
+            </h2>
+            <p className="mt-2 text-slate-500 dark:text-slate-400 font-medium">
+              Join the world&apos;s most advanced resume builder.
+            </p>
+          </div>
+
+          <div className="space-y-8">
+            <SignUpForm />
+            
+            <div className="text-center lg:text-left pt-6 border-t border-slate-100 dark:border-slate-800">
+              <p className="text-slate-600 dark:text-slate-400 font-medium">
+                Already have an account?
                 <Link
                   href={"/auth/signin"}
-                  className=" text-amber-500 hover:text-amber-700 mx-1.5 underline"
+                  className="text-amber-600 hover:text-amber-700 font-bold ml-1.5 underline underline-offset-4 transition-colors"
                 >
                   Sign In
                 </Link>
-              </div>
-
-              {/* Divider */}
-              <div className="relative flex items-center py-4">
-                <div className="grow border-t border-slate-200 dark:border-slate-700"></div>
-
-                <span className="shrink mx-4 text-slate-400 text-xs font-medium uppercase tracking-widest">
-                  Or sign up with
-                </span>
-
-                <div className="grow border-t border-slate-200 dark:border-slate-700"></div>
-              </div>
-
-              {/* Social */}
-              <SocialSignUp />
+              </p>
             </div>
 
-            {/* Terms */}
-            <p className="text-center text-slate-600 dark:text-slate-400 text-xs px-8">
-              By signing up, you agree to our
-              <a className="text-primary hover:underline"> Terms of Service </a>
-              and
-              <a className="text-primary hover:underline"> Privacy Policy</a>.
-            </p>
-          </div>
-        </main>
-      </div>
+            {/* Divider */}
+            <div className="relative flex items-center py-2">
+              <div className="grow border-t border-slate-100 dark:border-slate-800"></div>
+              <span className="shrink mx-4 text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">
+                Or join with
+              </span>
+              <div className="grow border-t border-slate-100 dark:border-slate-800"></div>
+            </div>
 
-      {/* Footer */}
-      <footer className="py-8 text-center">
-        <p className="text-slate-700 dark:text-slate-300 text-sm">
-          © 2026 ResumePro AI Technologies. All rights reserved.
-        </p>
-      </footer>
+            {/* Social Buttons */}
+            <SocialSignUp />
+          </div>
+        </div>
+        
+        {/* Footer Link Section */}
+        <footer className="mt-12 text-center text-slate-400 dark:text-slate-600 text-[10px] font-bold uppercase tracking-widest leading-loose">
+          © 2026 ResumePro AI Technologies.<br className="md:hidden" /> All rights reserved.
+        </footer>
+      </main>
     </div>
   );
 };
