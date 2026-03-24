@@ -21,7 +21,7 @@ const NavbarAuth = () => {
       <div className="flex items-center gap-4">
         <Link
           href="/dashboard"
-          className="hidden sm:flex items-center gap-2 bg-amber-600/10 text-amber-700 dark:text-amber-500 px-4 py-2 rounded-xl font-bold hover:bg-amber-600/20 transition-all border border-amber-600/20"
+          className="flex items-center gap-2 bg-amber-600/10 text-amber-700 dark:text-amber-500 px-4 py-2 rounded-xl font-bold hover:bg-amber-600/20 transition-all border border-amber-600/20"
         >
           Dashboard
         </Link>
