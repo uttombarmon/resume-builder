@@ -7,6 +7,7 @@ export const auth = betterAuth({
   trustedOrigins: ["http://localhost:3000"],
   advanced: {
     disableOriginCheck: true, // Only for local dev!
+    proxy: true,
   },
   database: drizzleAdapter(db, {
     provider: "pg", // or "mysql", "sqlite"

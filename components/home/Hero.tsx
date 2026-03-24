@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
-import { MoveRight, Zap } from "lucide-react";
+import { MoveRight, Zap, LayoutDashboard } from "lucide-react";
+import { useSession } from "@/lib/auth/auth-clients";
 
 const Hero = () => {
+  const { data: session } = useSession();
+  
   return (
     <section className="relative bg-slate-50 dark:bg-slate-950 py-20 md:py-32 overflow-hidden transition-colors duration-300">
       {/* Background Decorative Elements */}
@@ -27,12 +32,21 @@ const Hero = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
-              <Link 
-                href="/auth/signup" 
-                className="bg-amber-600 text-white text-lg font-black px-10 py-5 rounded-2xl hover:bg-amber-700 transition-all shadow-xl shadow-amber-600/25 active:scale-[0.98] flex items-center justify-center gap-2"
-              >
-                Get Started for Free <MoveRight size={20} />
-              </Link>
+              {session?.user ? (
+                <Link 
+                  href="/dashboard" 
+                  className="bg-amber-600 text-white text-lg font-black px-10 py-5 rounded-2xl hover:bg-amber-700 transition-all shadow-xl shadow-amber-600/25 active:scale-[0.98] flex items-center justify-center gap-2"
+                >
+                  Go to Dashboard <LayoutDashboard size={20} />
+                </Link>
+              ) : (
+                <Link 
+                  href="/auth/signup" 
+                  className="bg-amber-600 text-white text-lg font-black px-10 py-5 rounded-2xl hover:bg-amber-700 transition-all shadow-xl shadow-amber-600/25 active:scale-[0.98] flex items-center justify-center gap-2"
+                >
+                  Get Started for Free <MoveRight size={20} />
+                </Link>
+              )}
               <Link 
                 href="#templates" 
                 className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 text-lg font-black px-10 py-5 rounded-2xl hover:border-amber-600 hover:text-amber-600 dark:hover:border-amber-600 transition-all flex items-center justify-center"
