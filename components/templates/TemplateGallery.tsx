@@ -68,9 +68,9 @@ export default function TemplateGallery() {
               key={template.id}
               className="group bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 flex flex-col"
             >
-              <div className="aspect-[3/4] bg-slate-100 dark:bg-slate-800 relative overflow-hidden flex items-center justify-center p-8">
+              <div className="aspect-3/4 bg-slate-100 dark:bg-slate-800 relative overflow-hidden flex items-center justify-center p-8">
                 {/* Fallback pattern since we don't have real images */}
-                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-300 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-slate-300 via-transparent to-transparent"></div>
                 <LayoutTemplate size={64} className="text-slate-300 dark:text-slate-600 group-hover:scale-110 transition-transform duration-500" />
                 
                 {/* Hover overlay */}

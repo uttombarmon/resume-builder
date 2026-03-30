@@ -1,17 +1,16 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { auth } from "@/lib/auth/auth";
 
 export async function proxy(request: NextRequest) {
-  const sessionResponse = await fetch(`${request.nextUrl.origin}/api/auth/get-session`, {
-    headers: {
-      cookie: request.headers.get("cookie") || "",
-    },
+  const session = await auth.api.getSession({
+    headers: request.headers,
   });
 
-  const session = sessionResponse.ok ? await sessionResponse.json() : null;
-
   const isAuthPage = request.nextUrl.pathname.startsWith("/auth");
-  const isProtectedPage = request.nextUrl.pathname.startsWith("/dashboard") || 
-                         request.nextUrl.pathname.startsWith("/resumes");
+  const isProtectedPage = 
+    request.nextUrl.pathname.startsWith("/dashboard") || 
+    request.nextUrl.pathname.startsWith("/resumes") ||
+    request.nextUrl.pathname.startsWith("/profile");
 
   if (!session) {
     if (isProtectedPage) {
@@ -27,5 +26,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/resumes/:path*", "/auth/:path*"],
+  matcher: ["/dashboard/:path*", "/resumes/:path*", "/profile/:path*", "/auth/:path*"],
 };
