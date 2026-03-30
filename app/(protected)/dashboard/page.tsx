@@ -62,23 +62,25 @@ export default async function DashboardPage() {
       {/* Quick Action Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <AIGenerateModal>
-            <Card className="rounded-3xl border-none shadow-xl shadow-slate-200/40 dark:shadow-none dark:bg-slate-900/50 relative overflow-hidden group cursor-pointer active:scale-[0.99] transition-all">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform"></div>
-                <CardHeader className="relative z-10">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-600 text-white flex items-center justify-center mb-4 shadow-lg shadow-amber-600/20">
-                        <Sparkles size={24} />
-                    </div>
-                    <CardTitle className="text-xl font-black">AI Resume Builder</CardTitle>
-                    <CardDescription className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                        Generate a complete, professional resume in seconds using customized AI prompts.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="relative z-10 pt-0">
-                    <span className="inline-flex items-center font-bold text-amber-600 gap-2 group-hover:translate-x-1 transition-transform">
-                        Get Started <ChevronRight size={16} />
-                    </span>
-                </CardContent>
-            </Card>
+            <Button variant="ghost" className="h-auto p-0 border-none hover:bg-transparent rounded-3xl w-full text-left flex flex-col items-start">
+                <Card className="rounded-3xl border-none shadow-xl shadow-slate-200/40 dark:shadow-none dark:bg-slate-900/50 relative overflow-hidden group cursor-pointer active:scale-[0.99] transition-all w-full">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform"></div>
+                    <CardHeader className="relative z-10">
+                        <div className="w-12 h-12 rounded-2xl bg-amber-600 text-white flex items-center justify-center mb-4 shadow-lg shadow-amber-600/20">
+                            <Sparkles size={24} />
+                        </div>
+                        <CardTitle className="text-xl font-black">AI Resume Builder</CardTitle>
+                        <CardDescription className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+                            Generate a complete, professional resume in seconds using customized AI prompts.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="relative z-10 pt-0">
+                        <span className="inline-flex items-center font-bold text-amber-600 gap-2 group-hover:translate-x-1 transition-transform">
+                            Get Started <ChevronRight size={16} />
+                        </span>
+                    </CardContent>
+                </Card>
+            </Button>
         </AIGenerateModal>
 
         <Card className="rounded-3xl border-none shadow-xl shadow-slate-200/40 dark:shadow-none dark:bg-slate-900/50 relative overflow-hidden group cursor-pointer active:scale-[0.99] transition-all">
@@ -144,12 +146,15 @@ export default async function DashboardPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <AIGenerateModal>
-                <button className="h-64 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-3xl flex flex-col items-center justify-center gap-3 hover:border-amber-500/50 hover:bg-amber-50/20 dark:hover:bg-amber-900/10 transition-all group active:scale-[0.98]">
+                <Button 
+                    variant="outline"
+                    className="h-64 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-3xl flex flex-col items-center justify-center gap-3 hover:border-amber-500/50 hover:bg-amber-50/20 dark:hover:bg-amber-900/10 transition-all group active:scale-[0.98] w-full"
+                >
                     <div className="w-14 h-14 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-amber-600 group-hover:scale-110 transition-all">
                         <Plus size={32} />
                     </div>
                     <p className="font-bold text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Create New</p>
-                </button>
+                </Button>
             </AIGenerateModal>
 
             {userResumes.map((resume) => (

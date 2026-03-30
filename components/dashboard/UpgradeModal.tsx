@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
-export function UpgradeModal({ children }: { children: React.ReactNode }) {
+export function UpgradeModal({ children }: { children: React.ReactElement }) {
   const [loading, setLoading] = useState(false);
 
   const onUpgrade = async () => {
@@ -37,9 +37,7 @@ export function UpgradeModal({ children }: { children: React.ReactNode }) {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
+      <DialogTrigger render={children} />
       <DialogContent className="sm:max-w-[480px] rounded-3xl p-0 overflow-hidden border-none shadow-2xl">
         <div className="bg-amber-600 p-8 text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
