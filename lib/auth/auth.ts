@@ -11,6 +11,15 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  user: {
+    additionalFields: {
+      plan: {
+        type: "string",
+        defaultValue: "free",
+      },
+    },
+  },
+
   socialProviders: {
     github: {
       clientId: process.env.GITHUB_CLIENT_ID as string,

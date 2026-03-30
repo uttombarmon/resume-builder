@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { registerSchema } from "@/lib/utils/schemas";
+import { registerSchema } from "@/lib/utils";
 
 const SignUpForm = () => {
   const [name, setName] = useState("");
