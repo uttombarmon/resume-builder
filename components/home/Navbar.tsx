@@ -17,7 +17,7 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center space-x-8" role="menubar">
             <Link
-              href="#templates"
+              href="/templates"
               className="text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 font-bold transition-colors"
               role="menuitem"
             >
