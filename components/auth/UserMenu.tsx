@@ -35,7 +35,13 @@ const UserMenu = () => {
       >
         <div className="w-8 h-8 rounded-lg bg-amber-600 flex items-center justify-center text-white font-bold overflow-hidden">
           {user.image ? (
-            <img src={user.image} alt={user.name} className="w-full h-full object-cover" />
+            <Image 
+              src={user.image} 
+              alt={user.name} 
+              width={32}
+              height={32}
+              className="w-full h-full object-cover" 
+            />
           ) : (
             user.name.charAt(0).toUpperCase()
           )}

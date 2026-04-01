@@ -6,7 +6,6 @@ import {
   Dialog, 
   DialogContent, 
   DialogDescription, 
-  DialogHeader, 
   DialogTitle, 
   DialogTrigger 
 } from "@/components/ui/dialog";
@@ -28,7 +27,7 @@ export function UpgradeModal({ children }: { children: React.ReactElement }) {
       if (data.url) {
         window.location.href = data.url;
       }
-    } catch (error) {
+    } catch (err) {
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);

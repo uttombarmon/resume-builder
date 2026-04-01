@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const logos = [
   {
     name: "Google",
@@ -30,12 +32,14 @@ const LogoBar = () => {
         </p>
         <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
           {logos.map((logo) => (
-            <img
-              key={logo.name}
-              src={logo.url}
-              alt={`${logo.name} Logo`}
-              className="h-6 md:h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 dark:brightness-0 dark:invert dark:opacity-50 dark:hover:opacity-100 transition-all duration-300"
-            />
+            <div key={logo.name} className="h-6 md:h-8 relative w-24 md:w-32">
+              <Image
+                src={logo.url}
+                alt={`${logo.name} Logo`}
+                fill
+                className="object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 dark:brightness-0 dark:invert dark:opacity-50 dark:hover:opacity-100 transition-all duration-300"
+              />
+            </div>
           ))}
         </div>
       </div>

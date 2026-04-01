@@ -27,7 +27,7 @@ const ForgotPasswordForm = () => {
         toast.success("Reset email sent! Please check your inbox.");
         setIsSent(true);
       }
-    } catch (err) {
+    } catch {
       toast.error("An unexpected error occurred.");
     } finally {
       setIsPending(false);

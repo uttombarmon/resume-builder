@@ -49,7 +49,7 @@ export async function POST(req: Request) {
     
     // update templateId in default data design if specified
     if (templateId !== "default") {
-        defaultData.design.template = templateId;
+        defaultData.design.templateId = templateId as any;
     }
 
     await db.insert(resumeTable).values({

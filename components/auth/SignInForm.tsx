@@ -34,7 +34,7 @@ const SignInForm = () => {
         toast.success("Signed in successfully!");
         router.push("/dashboard");
       }
-    } catch (err: any) {
+    } catch {
       setError("An unexpected error occurred.");
       toast.error("An unexpected error occurred.");
     } finally {
@@ -49,7 +49,7 @@ const SignInForm = () => {
         provider,
         callbackURL: "/dashboard",
       });
-    } catch (err) {
+    } catch {
       toast.error("Social sign-in failed.");
     } finally {
       setIsPending(false);

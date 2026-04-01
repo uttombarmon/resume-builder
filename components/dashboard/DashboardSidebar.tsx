@@ -10,19 +10,13 @@ import {
   Plus, 
   Zap, 
   Layout,
-  HelpCircle,
   LogOut
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { signOut } from "@/lib/auth/auth-clients";
 import { AIGenerateModal } from "@/components/dashboard/AIGenerateModal";
-import { 
-  Tooltip, 
-  TooltipContent, 
-  TooltipProvider, 
-  TooltipTrigger 
-} from "@/components/ui/tooltip";
+
 
 const sidebarLinks = [
   { icon: LayoutDashboard, label: "Overview", href: "/dashboard" },

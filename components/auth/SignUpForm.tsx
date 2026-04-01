@@ -51,7 +51,7 @@ const SignUpForm = () => {
         toast.success("Account created successfully!");
         router.push("/dashboard");
       }
-    } catch (err: any) {
+    } catch {
       toast.error("An unexpected error occurred.");
     } finally {
       setIsPending(false);
@@ -65,7 +65,7 @@ const SignUpForm = () => {
         provider,
         callbackURL: "/dashboard",
       });
-    } catch (err) {
+    } catch {
       toast.error("Social sign-in failed.");
     } finally {
       setIsPending(false);

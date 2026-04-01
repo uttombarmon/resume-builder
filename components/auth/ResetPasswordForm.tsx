@@ -5,7 +5,6 @@ import { Loader, Lock, Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 
 const ResetPasswordForm = () => {
   const [password, setPassword] = useState("");
@@ -48,7 +47,7 @@ const ResetPasswordForm = () => {
         toast.success("Password reset successful! You can now sign in.");
         router.push("/auth/signin");
       }
-    } catch (err) {
+    } catch {
       toast.error("An unexpected error occurred.");
     } finally {
       setIsPending(false);

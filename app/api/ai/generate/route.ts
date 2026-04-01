@@ -7,9 +7,15 @@ import { resume as resumeTable, user as userTable } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    return new NextResponse("Gemini API Key is missing", { status: 500 });
+  }
+
+  const genAI = new GoogleGenerativeAI(apiKey);
   try {
     const session = await auth.api.getSession({
       headers: await headers(),

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { ResumeSection } from "./ResumeSection";
 import type { ResumeSection as ResumeSectionType, DesignSettings } from "@/lib/editor/types";
 import { FONT_OPTIONS } from "@/lib/editor/templates";
@@ -22,7 +22,7 @@ export function ResumeCanvas({
   onUpdateSection,
   onReorder,
 }: ResumeCanvasProps) {
-  const dragIndexRef = useRef<number | null>(null);
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   // Load Google Font
@@ -39,7 +39,7 @@ export function ResumeCanvas({
   }, [design.fontFamily]);
 
   const handleDragStart = useCallback((index: number) => {
-    dragIndexRef.current = index;
+    setDragIndex(index);
   }, []);
 
   const handleDragOver = useCallback((e: React.DragEvent, index: number) => {
@@ -50,17 +50,17 @@ export function ResumeCanvas({
   const handleDrop = useCallback(
     (e: React.DragEvent, toIndex: number) => {
       e.preventDefault();
-      if (dragIndexRef.current !== null && dragIndexRef.current !== toIndex) {
-        onReorder(dragIndexRef.current, toIndex);
+      if (dragIndex !== null && dragIndex !== toIndex) {
+        onReorder(dragIndex, toIndex);
       }
-      dragIndexRef.current = null;
+      setDragIndex(null);
       setDragOverIndex(null);
     },
-    [onReorder]
+    [dragIndex, onReorder]
   );
 
   const handleDragEnd = useCallback(() => {
-    dragIndexRef.current = null;
+    setDragIndex(null);
     setDragOverIndex(null);
   }, []);
 
@@ -112,7 +112,7 @@ export function ResumeCanvas({
                   onDrop={(e) => handleDrop(e, index)}
                   onDragEnd={handleDragEnd}
                   className={`transition-all ${
-                    dragOverIndex === index && dragIndexRef.current !== index
+                    dragOverIndex === index && dragIndex !== index
                       ? "border-t-2 border-blue-400"
                       : ""
                   }`}

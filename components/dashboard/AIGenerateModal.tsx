@@ -6,7 +6,6 @@ import {
   Dialog, 
   DialogContent, 
   DialogDescription, 
-  DialogHeader, 
   DialogTitle, 
   DialogTrigger 
 } from "@/components/ui/dialog";
@@ -46,7 +45,8 @@ export function AIGenerateModal({ children }: { children: React.ReactElement }) 
       toast.success("Resume generated successfully!");
       setOpen(false);
       router.push(`/resumes/edit/${data.id}`);
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as Error;
       toast.error(error.message || "Failed to generate resume.");
     } finally {
       setLoading(false);

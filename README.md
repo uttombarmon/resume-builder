@@ -68,11 +68,33 @@ A modern, type-safe, full-stack web application designed to help users create, m
     pnpm drizzle-kit push
     ```
 
-5.  **Run the development server:**
+5.  **Build for Production:**
     ```bash
-    pnpm dev
+    npm run build
+    ```
+
+6.  **Run the development server:**
+    ```bash
+    npm run dev
     ```
     Open [http://localhost:3000](http://localhost:3000) to see the app.
+
+---
+
+## ☁️ Deployment
+
+### 1. Vercel (Recommended)
+The easiest way to deploy is through Vercel:
+- Connect your GitHub repository.
+- Add all required environment variables.
+- Set the build command to `npm run build`.
+- The `DATABASE_URL` should point to your production PostgreSQL (e.g., Supabase or Neon).
+
+### 2. Manual Deployment
+- Ensure `BETTER_AUTH_URL` is set to your production domain.
+- Run `npm run build` followed by `npm run start`.
+- Use a process manager like **PM2** for reliability.
+
 
 ---
 
