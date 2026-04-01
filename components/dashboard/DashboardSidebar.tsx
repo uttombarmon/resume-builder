@@ -9,12 +9,14 @@ import {
   CreditCard, 
   Plus, 
   Zap, 
+  Layout,
   HelpCircle,
   LogOut
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { signOut } from "@/lib/auth/auth-clients";
+import { AIGenerateModal } from "@/components/dashboard/AIGenerateModal";
 import { 
   Tooltip, 
   TooltipContent, 
@@ -25,6 +27,7 @@ import {
 const sidebarLinks = [
   { icon: LayoutDashboard, label: "Overview", href: "/dashboard" },
   { icon: FileText, label: "My Resumes", href: "/dashboard/resumes" },
+  { icon: Layout, label: "Templates", href: "/dashboard/templates" },
   { icon: Zap, label: "AI Suggestions", href: "/dashboard/ai" },
   { icon: CreditCard, label: "Billing", href: "/dashboard/billing" },
   { icon: Settings, label: "Settings", href: "/dashboard/settings" },
@@ -46,13 +49,15 @@ export function DashboardSidebar() {
 
       <div className="flex-1 overflow-y-auto py-6 px-4">
         <div className="mb-8">
-          <Button
-            size="lg"
-            className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold gap-2 shadow-lg shadow-amber-600/20"
-          >
-            <Plus size={18} />
-            New Resume
-          </Button>
+          <AIGenerateModal>
+            <Button
+              size="lg"
+              className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold gap-2 shadow-lg shadow-amber-600/20"
+            >
+              <Plus size={18} />
+              New Resume
+            </Button>
+          </AIGenerateModal>
         </div>
 
         <nav className="space-y-1">

@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { UpgradeModal } from "@/components/dashboard/UpgradeModal";
+import { Input } from "@/components/ui/input";
+import TemplateGallery from "@/components/templates/TemplateGallery";
 import { AIGenerateModal } from "@/components/dashboard/AIGenerateModal";
 import { db } from "@/lib/db/dbConfig";
 import { resume as resumeTable } from "@/lib/db/schema";
@@ -42,12 +44,14 @@ export default async function DashboardPage() {
           </p>
         </div>
         <div className="flex gap-3">
-            <Button 
-                variant="outline" 
-                className="rounded-xl font-bold border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 h-12 px-6"
-            >
-                Templates
-            </Button>
+            <Link href="/dashboard/templates">
+                <Button 
+                    variant="outline" 
+                    className="rounded-xl font-bold border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 h-12 px-6"
+                >
+                    Templates
+                </Button>
+            </Link>
             <AIGenerateModal>
                 <Button 
                     className="bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow-lg shadow-amber-600/20 h-12 px-6 gap-2"
