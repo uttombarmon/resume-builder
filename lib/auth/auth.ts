@@ -20,12 +20,12 @@ export const auth = betterAuth({
     },
   },
 
-  socialProviders: {
-    github: {
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-    },
-  },
+  // socialProviders: {
+  //   github: {
+  //     clientId: process.env.GITHUB_CLIENT_ID as string,
+  //     clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+  //   },
+  // },
   trustedOrigins: [process.env.BETTER_AUTH_URL as string],
   advanced: {
     disableOriginCheck: true, // Only for local dev!
