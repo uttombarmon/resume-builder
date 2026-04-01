@@ -1,25 +1,30 @@
-# 🚀 Professional Resume Builder
+# 🚀 ResumePro - AI-Powered Professional Resume Builder
 
-A modern, type-safe, full-stack web application designed to help users create, manage, and export professional resumes. Built with a focus on performance, developer experience, and seamless database management using **Next.js** and **Drizzle ORM**.
+A modern, type-safe, full-stack web application designed to help users create, manage, and export professional resumes. Built with **Next.js 15**, **Drizzle ORM**, and integrated with **Google Gemini AI** for content optimization.
 
 ## ✨ Key Features
 
-- **Live Preview:** Real-time visual feedback as you build your resume.
-- **Type-Safe Database:** Powered by Drizzle ORM for robust data management.
-- **Containerized Environment:** Reliable PostgreSQL setup using Podman.
-- **Responsive UI:** Built with Tailwind CSS for a smooth experience across all devices.
-- **Modern Tech Stack:** Leveraging the latest Next.js 15 App Router features.
+-   **🤖 AI Resume Optimization:** Leverage Google Gemini to enhance your resume content and suggest improvements.
+-   **🔐 Secure Authentication:** Seamless login via **Better Auth** with GitHub social integration.
+-   **💳 Premium Subscriptions:** Integrated with **Stripe** for handling pro plan upgrades and payments.
+-   **⚡ Real-time Editor:** A dynamic interface for building resumes with live previews (Canva-inspired).
+-   **📊 Dashboard:** Manage multiple resumes and track your progress.
+-   **🎨 Modern UI:** Premium design using Tailwind CSS, Shadcn UI, and Base UI components.
+-   **💾 Type-Safe Database:** Powered by Drizzle ORM for robust data management.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
-- **Language:** [TypeScript](https://www.typescriptlang.org/)
-- **Database:** [PostgreSQL](https://www.postgresql.org/) (Running in Podman)
-- **ORM:** [Drizzle ORM](https://orm.drizzle.team/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Development Environment:** Fedora Workstation 43
+-   **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
+-   **Language:** [TypeScript](https://www.typescriptlang.org/)
+-   **AI:** [Google Gemini AI](https://deepmind.google/technologies/gemini/)
+-   **Auth:** [Better Auth](https://www.better-auth.com/)
+-   **Payments:** [Stripe](https://stripe.com/)
+-   **Database:** [PostgreSQL](https://www.postgresql.org/)
+-   **ORM:** [Drizzle ORM](https://orm.drizzle.team/)
+-   **Styling:** [Tailwind CSS 4](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.com/), [Base UI](https://base-ui.com/)
+-   **State Management:** React hooks and Zod for validation
 
 ---
 
@@ -27,61 +32,72 @@ A modern, type-safe, full-stack web application designed to help users create, m
 
 ### Prerequisites
 
-- **Node.js** (v18 or higher)
-- **pnpm** (preferred) or npm
-- **Podman** (for containerized database)
+-   **Node.js** (v18 or higher)
+-   **pnpm** (preferred)
+-   **PostgreSQL** (Local or Containerized)
 
 ### Installation
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/resume-builder.git](https://github.com/uttombarmon/resume-builder.git)
+    git clone https://github.com/uttombarmon/resume-builder.git
     cd resume-builder
     ```
+
 2.  **Install dependencies:**
     ```bash
     pnpm install
     ```
+
 3.  **Set up environment variables:**
-    Create a .env.local file in the root directory:
-
-        ```bash
-        DATABASE_URL="postgresql://user_dev:password_dev@localhost:5432/project_db"
-        ```
-
-4.  **Start the Database (Podman):**
+    Copy the example environment file and fill in your credentials:
     ```bash
-    podman-compose up -d
+    cp .env.example .env.local
     ```
-5.  **Push the Schema:**
+    Required keys:
+    - `DATABASE_URL` (PostgreSQL connection string)
+    - `BETTER_AUTH_SECRET` (Generate using `npx better-auth secret`)
+    - `BETTER_AUTH_URL` (`http://localhost:3000`)
+    - `GITHUB_CLIENT_ID` & `GITHUB_CLIENT_SECRET` (For social login)
+    - `GEMINI_API_KEY` (From Google AI Studio)
+    - `STRIPE_SECRET_KEY` & `STRIPE_WEBHOOK_SECRET` (For payments)
 
+4.  **Database Setup:**
+    Push the schema to your database:
     ```bash
-    npx drizzle-kit push
+    pnpm drizzle-kit push
     ```
 
-6.  **Run the development server:**
+5.  **Run the development server:**
+    ```bash
+    pnpm dev
+    ```
+    Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-        ```Bash
-        pnpm dev
-        ```
-
-    Open http://localhost:3000 with your browser to see the result.
+---
 
 ## 📂 Project Structure
 
-```Plaintext
-
-├── app/                # Next.js App Router (Pages & API)
-│── components/         # Reusable UI components
-│── lib/                # Utility functions
-|    └── db/            # Drizzle Schema & Connection
+```plaintext
+├── app/                # Next.js App Router (Pages & API Routes)
+│   ├── api/            # AI, Billing, and Auth endpoints
+│   ├── dashboard/      # User dashboard pages
+│   └── editor/         # Canva-style resume editor
+├── components/         # Reusable UI components & Editor components
+├── lib/                # Shared utilities
+│   ├── auth/           # Better Auth configuration
+│   ├── db/             # Drizzle schema & database client
+│   └── stripe/         # Stripe payment integration
 ├── drizzle/            # Database migrations
-├── pgdata/             # Local DB storage (Ignored by Git)
-├── docker-compose.yml  # Container configuration
 └── drizzle.config.ts   # ORM configuration
 ```
 
-📜 License
+---
+
+## 📜 License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-Built by [Uttom Barmon](https://github.com/uttombarmon)
+---
+
+Built with ❤️ by [Uttom Barmon](https://github.com/uttombarmon)
