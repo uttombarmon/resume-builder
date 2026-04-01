@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { Search, Filter, LayoutTemplate } from "lucide-react";
+import { Search, Filter, LayoutTemplate, Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // Mock templates data for gallery
 const templates = [
+  { id: "default", name: "Start from Scratch", category: "Minimal", plays: "Blank canvas", image: "" },
   { id: 1, name: "Modern Minimalist", category: "Minimal", plays: "125k uses", image: "/templates/1.webp" },
   { id: 2, name: "Executive Professional", category: "Professional", plays: "98k uses", image: "/templates/2.webp" },
   { id: 3, name: "Creative Agency", category: "Creative", plays: "45k uses", image: "/templates/3.webp" },
@@ -17,8 +18,27 @@ const templates = [
 const categories = ["All", "Professional", "Modern", "Creative", "Minimal"];
 
 export default function TemplateGallery() {
+  const router = useRouter();
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+
+  const handleCreateResume = async (templateId: string | number) => {
+    try {
+      setIsCreating(true);
+      const res = await fetch("/api/resumes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ templateId: templateId.toString() }),
+      });
+      if (!res.ok) throw new Error("Failed to create resume");
+      const { id } = await res.json();
+      router.push(`/resumes/edit/${id}`);
+    } catch (e) {
+      console.error(e);
+      setIsCreating(false);
+    }
+  };
 
   const filteredTemplates = templates.filter((template) => {
     const matchesCategory = activeCategory === "All" || template.category === activeCategory;
@@ -71,16 +91,21 @@ export default function TemplateGallery() {
               <div className="aspect-3/4 bg-slate-100 dark:bg-slate-800 relative overflow-hidden flex items-center justify-center p-8">
                 {/* Fallback pattern since we don't have real images */}
                 <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-slate-300 via-transparent to-transparent"></div>
-                <LayoutTemplate size={64} className="text-slate-300 dark:text-slate-600 group-hover:scale-110 transition-transform duration-500" />
+                {template.id === "default" ? (
+                    <Plus size={64} className="text-slate-300 dark:text-slate-600 group-hover:scale-110 transition-transform duration-500" />
+                ) : (
+                    <LayoutTemplate size={64} className="text-slate-300 dark:text-slate-600 group-hover:scale-110 transition-transform duration-500" />
+                )}
                 
                 {/* Hover overlay */}
                 <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <Link
-                    href={`/editor?template=${template.id}`}
-                    className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-amber-500/30 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300"
+                  <button
+                    onClick={() => handleCreateResume(template.id)}
+                    disabled={isCreating}
+                    className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-amber-500/30 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 disabled:opacity-50"
                   >
-                    Use Template
-                  </Link>
+                    {template.id === "default" ? "Start Blank" : "Use Template"}
+                  </button>
                 </div>
               </div>
 
@@ -105,7 +130,7 @@ export default function TemplateGallery() {
           <Filter className="mx-auto h-12 w-12 text-slate-400 mb-4" />
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">No templates found</h3>
           <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-            We couldn't find any templates matching "{searchQuery}" in the {activeCategory} category.
+            We couldn&apos;t find any templates matching &quot;{searchQuery}&quot; in the {activeCategory} category.
           </p>
           <button 
             onClick={() => { setSearchQuery(""); setActiveCategory("All"); }}
