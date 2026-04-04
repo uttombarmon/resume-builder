@@ -70,11 +70,20 @@ export async function POST(req: Request) {
     const response = await result.response;
     let text = response.text().trim();
     
-    if (text.startsWith("```json")) {
-        text = text.replace(/```json|```/g, "").trim();
+    // Robust JSON extraction
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+        console.error("[AI_OPTIMIZE] No JSON found in response:", text);
+        return new NextResponse("AI failed to generate valid JSON content", { status: 500 });
     }
-
-    const optimizedContent = JSON.parse(text);
+    
+    let optimizedContent;
+    try {
+        optimizedContent = JSON.parse(jsonMatch[0]);
+    } catch (parseError) {
+        console.error("[AI_OPTIMIZE] JSON Parse Error:", parseError, "Original text:", text);
+        return new NextResponse("Failed to parse AI-generated content", { status: 500 });
+    }
 
     // Update the resume in the database
     await db.update(resumeTable)

@@ -1,16 +1,22 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { ResumeSection } from "./ResumeSection";
-import type { ResumeSection as ResumeSectionType, DesignSettings } from "@/lib/editor/types";
 import { FONT_OPTIONS } from "@/lib/editor/templates";
+import type {
+  DesignSettings,
+  ResumeSection as ResumeSectionType,
+} from "@/lib/editor/types";
+import { useCallback, useEffect, useState } from "react";
+import { ResumeSection } from "./ResumeSection";
 
 interface ResumeCanvasProps {
   sections: ResumeSectionType[];
   design: DesignSettings;
   selectedId: string | null;
   onSelect: (id: string | null) => void;
-  onUpdateSection: (id: string, updater: (s: ResumeSectionType) => ResumeSectionType) => void;
+  onUpdateSection: (
+    id: string,
+    updater: (s: ResumeSectionType) => ResumeSectionType,
+  ) => void;
   onReorder: (from: number, to: number) => void;
 }
 
@@ -24,7 +30,7 @@ export function ResumeCanvas({
 }: ResumeCanvasProps) {
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
-
+  console.log(sections);
   // Load Google Font
   useEffect(() => {
     const font = FONT_OPTIONS.find((f) => f.value === design.fontFamily);
@@ -56,7 +62,7 @@ export function ResumeCanvas({
       setDragIndex(null);
       setDragOverIndex(null);
     },
-    [dragIndex, onReorder]
+    [dragIndex, onReorder],
   );
 
   const handleDragEnd = useCallback(() => {
@@ -98,7 +104,9 @@ export function ResumeCanvas({
         >
           {sections.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-64 text-slate-300">
-              <p className="text-lg font-semibold">Add sections from the left panel</p>
+              <p className="text-lg font-semibold">
+                Add sections from the left panel
+              </p>
               <p className="text-sm mt-1">Your resume will appear here</p>
             </div>
           ) : (
