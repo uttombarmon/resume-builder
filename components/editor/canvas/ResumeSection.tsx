@@ -83,24 +83,38 @@ const FONT_SIZE_MAP = { sm: "11px", md: "12px", lg: "13px" };
 function SectionTitle({
   title,
   accentColor,
-  templateId,
+  titleCase,
+  align,
+  dividerStyle,
   onChange,
 }: {
   title: string;
   accentColor: string;
-  templateId: string;
+  titleCase: "uppercase" | "capitalize" | "normal";
+  align: "left" | "center" | "right";
+  dividerStyle: "solid" | "dashed" | "dotted" | "none";
   onChange: (t: string) => void;
 }) {
+  const caseClass = 
+    titleCase === "uppercase" ? "uppercase" : 
+    titleCase === "capitalize" ? "capitalize" : "";
+    
   return (
-    <div className="mb-2">
+    <div className="mb-2" style={{ textAlign: align }}>
       <Field
         value={title}
         onChange={onChange}
-        className="text-sm font-bold uppercase tracking-wider"
+        className={`text-sm font-bold tracking-wider ${caseClass}`}
         style={{ color: accentColor } as React.CSSProperties}
       />
-      {templateId !== "minimal" && (
-        <div className="mt-0.5 h-0.5 w-full rounded-full" style={{ background: accentColor, opacity: 0.35 }} />
+      {dividerStyle !== "none" && (
+        <div 
+          className="mt-1 w-full" 
+          style={{ 
+            borderBottom: `1.5px ${dividerStyle} ${accentColor}`,
+            opacity: 0.4 
+          }} 
+        />
       )}
     </div>
   );
@@ -191,8 +205,15 @@ export function ResumeSection({
   if (section.content.type === "summary") {
     const c = section.content;
     return (
-      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily}>
-        <SectionTitle title={c.title} accentColor={acc} templateId={design.templateId} onChange={(v) => updateContent({ title: v })} />
+      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily} design={design}>
+        <SectionTitle 
+          title={c.title} 
+          accentColor={acc} 
+          titleCase={design.sectionTitleCase}
+          align={design.sectionTitleAlign}
+          dividerStyle={design.dividerStyle}
+          onChange={(v) => updateContent({ title: v })} 
+        />
         <Field
           value={c.text}
           onChange={(v) => updateContent({ text: v })}
@@ -212,8 +233,15 @@ export function ResumeSection({
     const updateEntries = (entries: ExperienceEntry[]) => updateContent({ entries });
 
     return (
-      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily}>
-        <SectionTitle title={c.title} accentColor={acc} templateId={design.templateId} onChange={(v) => updateContent({ title: v })} />
+      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily} design={design}>
+        <SectionTitle 
+          title={c.title} 
+          accentColor={acc} 
+          titleCase={design.sectionTitleCase}
+          align={design.sectionTitleAlign}
+          dividerStyle={design.dividerStyle}
+          onChange={(v) => updateContent({ title: v })} 
+        />
         <div className="space-y-4">
           {c.entries.map((entry, ei) => (
             <div key={entry.id} className="group/entry relative">
@@ -290,8 +318,15 @@ export function ResumeSection({
     const updateEntries = (entries: EducationEntry[]) => updateContent({ entries });
 
     return (
-      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily}>
-        <SectionTitle title={c.title} accentColor={acc} templateId={design.templateId} onChange={(v) => updateContent({ title: v })} />
+      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily} design={design}>
+        <SectionTitle 
+          title={c.title} 
+          accentColor={acc} 
+          titleCase={design.sectionTitleCase}
+          align={design.sectionTitleAlign}
+          dividerStyle={design.dividerStyle}
+          onChange={(v) => updateContent({ title: v })} 
+        />
         <div className="space-y-3">
           {c.entries.map((entry, ei) => (
             <div key={entry.id} className="group/entry relative flex justify-between items-start gap-2">
@@ -337,8 +372,15 @@ export function ResumeSection({
     const updateCats = (categories: SkillCategory[]) => updateContent({ categories });
 
     return (
-      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily}>
-        <SectionTitle title={c.title} accentColor={acc} templateId={design.templateId} onChange={(v) => updateContent({ title: v })} />
+      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily} design={design}>
+        <SectionTitle 
+          title={c.title} 
+          accentColor={acc} 
+          titleCase={design.sectionTitleCase}
+          align={design.sectionTitleAlign}
+          dividerStyle={design.dividerStyle}
+          onChange={(v) => updateContent({ title: v })} 
+        />
         <div className="space-y-1.5">
           {c.categories.map((cat, ci) => (
             <div key={cat.id} className="group/cat relative flex items-start gap-2">
@@ -368,8 +410,15 @@ export function ResumeSection({
     const updateEntries = (entries: ProjectEntry[]) => updateContent({ entries });
 
     return (
-      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily}>
-        <SectionTitle title={c.title} accentColor={acc} templateId={design.templateId} onChange={(v) => updateContent({ title: v })} />
+      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily} design={design}>
+        <SectionTitle 
+          title={c.title} 
+          accentColor={acc} 
+          titleCase={design.sectionTitleCase}
+          align={design.sectionTitleAlign}
+          dividerStyle={design.dividerStyle}
+          onChange={(v) => updateContent({ title: v })} 
+        />
         <div className="space-y-3">
           {c.entries.map((entry, ei) => (
             <div key={entry.id} className="group/entry relative">
@@ -402,8 +451,15 @@ export function ResumeSection({
     const updateEntries = (entries: CertificationEntry[]) => updateContent({ entries });
 
     return (
-      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily}>
-        <SectionTitle title={c.title} accentColor={acc} templateId={design.templateId} onChange={(v) => updateContent({ title: v })} />
+      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily} design={design}>
+        <SectionTitle 
+          title={c.title} 
+          accentColor={acc} 
+          titleCase={design.sectionTitleCase}
+          align={design.sectionTitleAlign}
+          dividerStyle={design.dividerStyle}
+          onChange={(v) => updateContent({ title: v })} 
+        />
         <div className="space-y-2">
           {c.entries.map((entry, ei) => (
             <div key={entry.id} className="group/entry relative flex items-center justify-between gap-2">
@@ -433,8 +489,15 @@ export function ResumeSection({
   if (section.content.type === "custom") {
     const c = section.content;
     return (
-      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily}>
-        <SectionTitle title={c.title} accentColor={acc} templateId={design.templateId} onChange={(v) => updateContent({ title: v })} />
+      <SectionWrapper isSelected={isSelected} onSelect={onSelect} dragHandleProps={dragHandleProps} fontFamily={fontFamily} design={design}>
+        <SectionTitle 
+          title={c.title} 
+          accentColor={acc} 
+          titleCase={design.sectionTitleCase}
+          align={design.sectionTitleAlign}
+          dividerStyle={design.dividerStyle}
+          onChange={(v) => updateContent({ title: v })} 
+        />
         <Field value={c.text} onChange={(v) => updateContent({ text: v })} placeholder="Add your content..." multiline accentColor={acc} className="text-slate-600 dark:text-slate-300 leading-relaxed" style={{ fontSize } as React.CSSProperties} />
       </SectionWrapper>
     );
@@ -450,12 +513,14 @@ function SectionWrapper({
   onSelect,
   dragHandleProps,
   fontFamily,
+  design,
 }: {
   children: React.ReactNode;
   isSelected: boolean;
   onSelect: () => void;
   dragHandleProps?: React.HTMLAttributes<HTMLDivElement>;
   fontFamily: string;
+  design: DesignSettings;
 }) {
   return (
     <div
@@ -468,7 +533,9 @@ function SectionWrapper({
       style={{ fontFamily }}
     >
       {isSelected && <DragHandle dragHandleProps={dragHandleProps} />}
-      {children}
+      <div style={{ lineHeight: design.lineHeight }}>
+        {children}
+      </div>
     </div>
   );
 }

@@ -12,6 +12,13 @@ import {
   Palette,
   Type,
   LayoutTemplate,
+  Move,
+  AlignCenter,
+  AlignRight,
+  ALargeSmall,
+  Split,
+  Square,
+  Maximize,
 } from "lucide-react";
 import { useState } from "react";
 import { TEMPLATES, FONT_OPTIONS, ACCENT_COLORS } from "@/lib/editor/templates";
@@ -208,8 +215,8 @@ export function LeftPanel({ design, onDesignChange, onAddSection }: LeftPanelPro
 
             {/* Font size */}
             <div>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
-                Text Size
+              <p className="text-[10px] font-black text-slate-400 capitalize tracking-widest mb-3 flex items-center gap-1.5">
+                <ALargeSmall size={10} /> Text Size
               </p>
               <div className="flex gap-2">
                 {(["sm", "md", "lg"] as const).map((size) => (
@@ -225,6 +232,143 @@ export function LeftPanel({ design, onDesignChange, onAddSection }: LeftPanelPro
                     {size.toUpperCase()}
                   </button>
                 ))}
+              </div>
+            </div>
+
+            {/* Layout Settings */}
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-4">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                <Move size={10} /> Layout & Spacing
+              </p>
+              
+              <div className="space-y-3">
+                {/* Section Spacing */}
+                <div>
+                  <div className="flex justify-between mb-1.5">
+                    <label className="text-[11px] font-medium text-slate-500">Section Spacing</label>
+                    <span className="text-[10px] font-mono text-slate-400">{design.sectionSpacing}px</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="60"
+                    step="4"
+                    value={design.sectionSpacing}
+                    onChange={(e) => onDesignChange({ sectionSpacing: parseInt(e.target.value) })}
+                    className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                  />
+                </div>
+
+                {/* Page Margin */}
+                <div>
+                  <div className="flex justify-between mb-1.5">
+                    <label className="text-[11px] font-medium text-slate-500">Page Margins</label>
+                    <span className="text-[10px] font-mono text-slate-400">{design.pageMargin}px</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="20"
+                    max="100"
+                    step="4"
+                    value={design.pageMargin}
+                    onChange={(e) => onDesignChange({ pageMargin: parseInt(e.target.value) })}
+                    className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                  />
+                </div>
+
+                {/* Line Height */}
+                <div>
+                  <div className="flex justify-between mb-1.5">
+                    <label className="text-[11px] font-medium text-slate-500">Line Spacing</label>
+                    <span className="text-[10px] font-mono text-slate-400">{design.lineHeight}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="1"
+                    max="2"
+                    step="0.1"
+                    value={design.lineHeight}
+                    onChange={(e) => onDesignChange({ lineHeight: parseFloat(e.target.value) })}
+                    className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Typography Styles */}
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-4">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                <Maximize size={10} /> Section Styles
+              </p>
+
+              <div>
+                <label className="text-[11px] font-medium text-slate-500 mb-2 block">Title Case</label>
+                <div className="flex gap-1 bg-slate-50 dark:bg-slate-800 p-1 rounded-xl">
+                  {([
+                    { value: "uppercase", label: "AA" },
+                    { value: "capitalize", label: "Aa" },
+                    { value: "normal", label: "aa" }
+                  ] as const).map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => onDesignChange({ sectionTitleCase: opt.value })}
+                      className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                        design.sectionTitleCase === opt.value
+                          ? "bg-white dark:bg-slate-700 shadow-sm text-amber-600"
+                          : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-medium text-slate-500 mb-2 block">Alignment</label>
+                <div className="flex gap-1 bg-slate-50 dark:bg-slate-800 p-1 rounded-xl">
+                  {[
+                    { value: "left", icon: AlignLeft },
+                    { value: "center", icon: AlignCenter },
+                    { value: "right", icon: AlignRight }
+                  ].map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => onDesignChange({ sectionTitleAlign: opt.value as any })}
+                      className={`flex-1 py-1.5 flex justify-center rounded-lg transition-all ${
+                        design.sectionTitleAlign === opt.value
+                          ? "bg-white dark:bg-slate-700 shadow-sm text-amber-600"
+                          : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                      }`}
+                    >
+                      <opt.icon size={14} />
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-medium text-slate-500 mb-2 block">Divider Style</label>
+                <div className="flex gap-1 bg-slate-50 dark:bg-slate-800 p-1 rounded-xl">
+                  {([
+                    { value: "solid", label: "──" },
+                    { value: "dashed", label: "- - -" },
+                    { value: "dotted", label: "• • •" },
+                    { value: "none", label: "None" }
+                  ] as const).map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => onDesignChange({ dividerStyle: opt.value })}
+                      className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
+                        design.dividerStyle === opt.value
+                          ? "bg-white dark:bg-slate-700 shadow-sm text-amber-600"
+                          : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

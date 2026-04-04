@@ -159,6 +159,13 @@ export function getDefaultResumeData(id: string, name: string): ResumeData {
       fontFamily: "inter",
       accentColor: "#1e40af",
       fontSize: "md",
+      sectionSpacing: 24,
+      contentSpacing: 12,
+      pageMargin: 64,
+      lineHeight: 1.5,
+      sectionTitleCase: "uppercase",
+      sectionTitleAlign: "left",
+      dividerStyle: "solid",
     },
   };
 }

@@ -30,7 +30,6 @@ export function ResumeCanvas({
 }: ResumeCanvasProps) {
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
-  console.log(sections);
   // Load Google Font
   useEffect(() => {
     const font = FONT_OPTIONS.find((f) => f.value === design.fontFamily);
@@ -96,9 +95,13 @@ export function ResumeCanvas({
         {/* A4 Paper */}
         <div
           id="resume-print-area"
-          className="bg-white shadow-2xl shadow-slate-400/30 dark:shadow-black/50 w-[794px] min-h-[1123px] shrink-0 relative"
+          className="bg-white shadow-2xl shadow-slate-400/30 dark:shadow-black/50 w-[794px] min-h-[1123px] shrink-0 relative transition-all duration-300 ease-in-out"
           style={{
             background: design.templateId === "bold" ? undefined : "white",
+            padding: `${design.pageMargin}px`,
+            display: "flex",
+            flexDirection: "column",
+            gap: `${design.sectionSpacing}px`,
           }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -110,7 +113,7 @@ export function ResumeCanvas({
               <p className="text-sm mt-1">Your resume will appear here</p>
             </div>
           ) : (
-            <div className="pb-8">
+            <>
               {sections.map((section, index) => (
                 <div
                   key={section.id}
@@ -139,7 +142,7 @@ export function ResumeCanvas({
                   />
                 </div>
               ))}
-            </div>
+            </>
           )}
         </div>
 

@@ -71,17 +71,18 @@ export async function POST(req: Request) {
       {
         "id": "unique-uuid-v4",
         "type": "header",
-        "content": { "name": "${name}", "title": "${role}", "email": "email@example.com", "phone": "+1 (555) 000-0000", "location": "City, State", "linkedin": "linkedin.com/in/username", "website": "" }
+        "content": { "type": "header", "name": "${name}", "title": "${role}", "email": "email@example.com", "phone": "+1 (555) 000-0000", "location": "City, State", "linkedin": "linkedin.com/in/username", "website": "" }
       },
       {
         "id": "unique-uuid-v4",
         "type": "summary",
-        "content": { "title": "Professional Summary", "text": "A concise, keyword-rich 3-line summary optimized for ${role} roles." }
+        "content": { "type": "summary", "title": "Professional Summary", "text": "A concise, keyword-rich 3-line summary optimized for ${role} roles." }
       },
       {
         "id": "unique-uuid-v4",
         "type": "experience",
         "content": { 
+          "type": "experience",
           "title": "Work Experience", 
           "entries": [
             { "id": "uuid", "company": "Company Name", "role": "Job Title", "startDate": "Month Year", "endDate": "Present", "location": "City, State", "bullets": ["Accomplished X by performing Y, resulting in Z.", "Optimized system performance by 30% using modern frameworks."] }
@@ -92,6 +93,7 @@ export async function POST(req: Request) {
         "id": "unique-uuid-v4",
         "type": "skills",
         "content": { 
+          "type": "skills",
           "title": "Skills", 
           "categories": [
             { "id": "uuid", "name": "Technical Skills", "items": "List relevant keywords here separated by commas" }

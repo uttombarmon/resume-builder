@@ -134,6 +134,15 @@ export interface DesignSettings {
   fontFamily: FontFamily;
   accentColor: string;
   fontSize: FontSize;
+  // Layout
+  sectionSpacing: number;
+  contentSpacing: number;
+  pageMargin: number;
+  lineHeight: number;
+  // Style
+  sectionTitleCase: "uppercase" | "capitalize" | "normal";
+  sectionTitleAlign: "left" | "center" | "right";
+  dividerStyle: "solid" | "dashed" | "dotted" | "none";
 }
 
 export interface ResumeData {
