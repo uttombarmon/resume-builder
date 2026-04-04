@@ -7,6 +7,7 @@ import { LeftPanel } from "./panels/LeftPanel";
 import { RightPanel } from "./panels/RightPanel";
 import { ResumeCanvas } from "./canvas/ResumeCanvas";
 import { createDefaultSection } from "@/lib/editor/defaults";
+import { OptimizeModal } from "./modals/OptimizeModal";
 import type {
   ResumeData,
   ResumeSection,
@@ -21,6 +22,7 @@ interface EditorState {
   selectedId: string | null;
   isSaving: boolean;
   isDirty: boolean;
+  isOptimizeModalOpen: boolean;
 }
 
 export function ResumeEditor({ initialData }: { initialData: ResumeData }) {
@@ -31,6 +33,7 @@ export function ResumeEditor({ initialData }: { initialData: ResumeData }) {
     selectedId: null,
     isSaving: false,
     isDirty: false,
+    isOptimizeModalOpen: false,
   });
 
   const autoSaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -173,6 +176,40 @@ export function ResumeEditor({ initialData }: { initialData: ResumeData }) {
     [state.data, pushHistory]
   );
 
+  const handleOptimize = async (jd: string) => {
+    try {
+      const res = await fetch("/api/ai/optimize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          resumeId: state.data.id,
+          jobDescription: jd,
+        }),
+      });
+
+      if (res.status === 403) {
+        throw new Error("Upgrade to Pro to use AI Job Optimization.");
+      }
+
+      if (!res.ok) throw new Error("Optimization failed. Please try again.");
+
+      const result = await res.json();
+      if (result.success && result.content) {
+        pushHistory({
+          ...state.data,
+          sections: result.content.sections,
+          design: result.content.design || state.data.design,
+        });
+        toast.success("Resume tailored successfully!");
+        return result;
+      }
+      return null;
+    } catch (err: any) {
+      toast.error(err.message);
+      throw err;
+    }
+  };
+
   const handleMove = useCallback(
     (id: string, dir: "up" | "down") => {
       const idx = state.data.sections.findIndex((s) => s.id === id);
@@ -199,6 +236,13 @@ export function ResumeEditor({ initialData }: { initialData: ResumeData }) {
         isDirty={state.isDirty}
         canUndo={state.historyIndex > 0}
         canRedo={state.historyIndex < state.history.length - 1}
+        onOptimize={() => setState(prev => ({ ...prev, isOptimizeModalOpen: true }))}
+      />
+
+      <OptimizeModal
+        isOpen={state.isOptimizeModalOpen}
+        onClose={() => setState(prev => ({ ...prev, isOptimizeModalOpen: false }))}
+        onOptimize={handleOptimize}
       />
 
       <div className="flex flex-1 overflow-hidden">

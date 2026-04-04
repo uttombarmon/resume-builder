@@ -10,6 +10,7 @@ import {
   Check,
   Loader2,
   FileText,
+  Sparkles,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -24,6 +25,7 @@ interface EditorToolbarProps {
   isDirty: boolean;
   canUndo: boolean;
   canRedo: boolean;
+  onOptimize: () => void;
 }
 
 export function EditorToolbar({
@@ -37,6 +39,7 @@ export function EditorToolbar({
   isDirty,
   canUndo,
   canRedo,
+  onOptimize,
 }: EditorToolbarProps) {
   const [editingName, setEditingName] = useState(false);
   const [localName, setLocalName] = useState(name);
@@ -135,6 +138,16 @@ export function EditorToolbar({
           </span>
         )}
       </div>
+
+      {/* Optimize with AI */}
+      <button
+        onClick={onOptimize}
+        title="Optimize for Job with AI"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600/10 hover:bg-emerald-600/20 border border-emerald-600/30 text-emerald-400 text-xs font-bold transition-all shadow-lg shadow-emerald-500/10 group"
+      >
+        <Sparkles size={14} className="text-emerald-400 group-hover:animate-pulse" />
+        AI Optimize
+      </button>
 
       {/* Save button */}
       <button
